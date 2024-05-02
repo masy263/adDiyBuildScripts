@@ -1,8 +1,13 @@
 # files
 
+*.elf
 *.log
+*.tar.gz
+*.xsa
 
 
 #folders
 
+**/build_boot_bin/
+**/output_boot_bin/
 

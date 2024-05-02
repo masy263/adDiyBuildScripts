@@ -11,11 +11,11 @@ usage () {
 	exit 1
 }
 
-#depends () {
-#	echo Xilinx $1 must be installed and in your PATH
-#	echo try: source /opt/Xilinx/Vivado/202x.x/settings64.sh
-#	exit 1
-#}
+depends () {
+	echo Xilinx $1 must be installed and in your PATH
+	echo try: source /opt/Xilinx/Vivado/202x.x/settings64.sh
+	exit 1
+}
 
 ### Check command line parameters
 echo $XSA_FILE | grep -q ".xsa" || usage
