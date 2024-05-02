@@ -4,7 +4,7 @@ START=$(date +%s)
 
 # open hdl git
 # cd /home/markus/Git-Repos/adHdlRepo/hdl/projects/adrv9361z7035/
-cd /home/markus/Git-Repos/adHdlRepo/hdl/
+cd /home/markus/Git-Repos/adHdlRepo/
 
 # git clean -fdx
 # git restore .

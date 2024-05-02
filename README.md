@@ -21,13 +21,14 @@ Beide Boards sin **nicht mit Vivado Standard verwendbar**. Folglich braucht es e
 
 ### Voraussetzung
 
-1) Vivado Enterprise (lizensiert)
-2) Vivado muss fuer die Shell-Session, in der das Projekt gebaut wird, dem `$PATH` hinzugefuegt werden (exemplarischer Aufruf zum Installationsverzeichnis):
+ 1) Vivado Enterprise (lizensiert)
 
-`export PATH=$PATH:/home/markus/Programme/VivadoEnterprise-2021.1/Vivado/2021.1/bin/`
-`export PATH=$PATH:/home/markus/Programme/VivadoEnterprise-2021.1/Vitis_HLS/2021.1/bin/`
+ 2) Vivado muss fuer die Shell-Session, in der das Projekt gebaut wird, dem `$PATH` hinzugefuegt werden (exemplarischer Aufruf zum Installationsverzeichnis):
 
-3) Es muss auf den Branch des HDL-Repos ausgecheckt werden, der der Vivado-Version entspricht (siehe: https://wiki.analog.com/resources/fpga/docs/releases).
+  `export PATH=$PATH:/home/markus/Programme/VivadoEnterprise-2021.1/Vivado/2021.1/bin/`
+  `export PATH=$PATH:/home/markus/Programme/VivadoEnterprise-2021.1/Vitis_HLS/2021.1/bin/`
+
+ 3) Es muss auf den Branch des HDL-Repos ausgecheckt werden, der der Vivado-Version entspricht (siehe: https://wiki.analog.com/resources/fpga/docs/releases).
 
 *(siehe auch: https://wiki.analog.com/resources/fpga/docs/build)*
 
@@ -39,9 +40,11 @@ Im AD-HDL-Repo muss make mit dem Verzeichnis aufgerufen werden, das der verwende
 
 ### Erfahrungen & Fehler
 
-1) Zunaechst wurde vergessen, die `$PATH`-Variable (in der gleichen Shell-Session, in der auch MAKE ausgefuehrt wird!) um den Vivado-Pfad zu erweitern :: Resultat: Es gab eine Fehlermeldung, wonach der Befehl `vivado` nicht gefunden wurde.
-2) Es wurde versucht, den Prozess mit einer Vivado Standard Version durchzufuehren. Resultat: Es gab eine Fehlermeldung, wonach die Hardware (also der im Projekt verwendete FPGA) unbekannt ist.
-3) Der erste erfolgreiche Build-Prozess konnte mit Vivado Enterprise 2021.1 (unter Verwendung einer 30-Tage-Trial-Lizenz) durchgefuehrt werden. Bei oeffnen der `*.xpr` in Vivado kam es ABER zu der Fehlermeldung, wonach die Hardware (also der im Projekt verwendete FPGA) unbekannt sein. Eine Neuinstallation von Vivado Enterprise 2021.1 loeste das Problem. Die Ursache der urspruenglichen Fehlermeldung ist nach wie vor unbekannt. *Nachtrag: Vermutlich bestand das Problem darin, dass fuer Makeprozess der Pfad zu Vivado Enterprise 2021.1 angegeben wurde, womit das Projekt erfolgreich erzeugt werden konnte, aber bei Oeffnen des Projekts, Vivado ueber das Start-Menue gestartet wurde, was jedoch nicht die Enterprise sondern die Standard Version laedt!*
+ 1) Zunaechst wurde vergessen, die `$PATH`-Variable (in der gleichen Shell-Session, in der auch MAKE ausgefuehrt wird!) um den Vivado-Pfad zu erweitern :: Resultat: Es gab eine Fehlermeldung, wonach der Befehl `vivado` nicht gefunden wurde.
+
+ 2) Es wurde versucht, den Prozess mit einer Vivado Standard Version durchzufuehren. Resultat: Es gab eine Fehlermeldung, wonach die Hardware (also der im Projekt verwendete FPGA) unbekannt ist.
+
+ 3) Der erste erfolgreiche Build-Prozess konnte mit Vivado Enterprise 2021.1 (unter Verwendung einer 30-Tage-Trial-Lizenz) durchgefuehrt werden. Bei oeffnen der `*.xpr` in Vivado kam es ABER zu der Fehlermeldung, wonach die Hardware (also der im Projekt verwendete FPGA) unbekannt sein. Eine Neuinstallation von Vivado Enterprise 2021.1 loeste das Problem. Die Ursache der urspruenglichen Fehlermeldung ist nach wie vor unbekannt. *Nachtrag: Vermutlich bestand das Problem darin, dass fuer Makeprozess der Pfad zu Vivado Enterprise 2021.1 angegeben wurde, womit das Projekt erfolgreich erzeugt werden konnte, aber bei Oeffnen des Projekts, Vivado ueber das Start-Menue gestartet wurde, was jedoch nicht die Enterprise sondern die Standard Version laedt!*
 
 ### Unklar
 
@@ -49,7 +52,20 @@ Im AD-HDL-Repo muss make mit dem Verzeichnis aufgerufen werden, das der verwende
 
 ## Build BOOT.BIN
 
-ES MUSS **Vitis Unified Software** auf dem Rechner installiert sein. Nur diese liefert das Xilinx Command Line Interface XSCT!
+Link: https://wiki.analog.com/resources/tools-software/linux-software/build-the-zynq-boot-image
 
-https://wiki.analog.com/resources/tools-software/linux-software/kuiper-linux
-https://wiki.analog.com/resources/tools-software/linux-software/build-the-zynq-boot-image
+Der letztliche **Aufruf zur Generierung der** `BOOT.BIN` **lautet**:
+
+`bash build_boot_bin.sh <...>/*.xsa <...>/u-boot.elf BOOT.BIN`
+
+ 1) Eine ausfuehrliche **Anleitung und das Skript** `build_boot_bin.sh` gibt es auf: https://wiki.analog.com/resources/tools-software/linux-software/build-the-zynq-boot-image
+
+ 2) Das `*.xsa`-File kann im Vivado-Projekt generiert werden via "File" -> "Export Hardware". Im Menue, welches sich oeffnet, wurde bisher stets die Option "Include Buitstream" angewaehlt.
+
+ 3) Die `u-boot.elf` kann dem Linux-Image von AD entnommen werden. Das Archiv `/BOOT/<verwendete_hardware>/bootgen_sysfiles.tgz` enthaelt die Datei. Das AD-Linux-Img gibt es auf: https://wiki.analog.com/resources/tools-software/linux-software/kuiper-linux
+ 
+ 4) **Voraussetzungen:** 
+ 
+  + ES MUSS **Vitis Unified Software** auf dem Rechner installiert sein. Nur diese liefert das Xilinx Command Line Interface XSCT!
+
+  + Der Pfad zu Vitis muss hinzugefuegt werden. Die geht durch das sourcen des Vitis Settings Files: `source /home/markus/Programme/VitisUnifiedSoftware-2021.1/Vitis/2021.1/settings64.sh`
