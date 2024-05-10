@@ -4,13 +4,13 @@ START=$(date +%s)
 
 AD_HDL_REPO=/home/markus/Git-Repos/adHdlRepo
 BUILD_SCRIPTS=/home/markus/Git-Repos/adDiyBuildScripts
-PROJECT_PATH=adrv9361z7035/ccbob_cmos
-PROJECT_NAME=adrv9361z7035
+PROJECT_PATH=fmcomms2/zcu102
+PROJECT_NAME=zcu102fmcomms2
 
 # open hdl git
 cd $AD_HDL_REPO
-git status | tee $BUILD_SCRIPTS/adrv9361z7035.log
-git checkout 2021_r1 | tee -a $BUILD_SCRIPTS/adrv9361z7035.log
+git status | tee $BUILD_SCRIPTS/$PROJECT_NAME.log
+git checkout 2021_r1 | tee -a $BUILD_SCRIPTS/$PROJECT_NAME.log
 git clean -fdx
 
 # set flag to generate project, that allow out-of-context sythesis
