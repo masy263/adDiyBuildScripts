@@ -69,3 +69,21 @@ Der letztliche **Aufruf zur Generierung der** `BOOT.BIN` **lautet**:
   + ES MUSS **Vitis Unified Software** auf dem Rechner installiert sein. Nur diese liefert das Xilinx Command Line Interface XSCT!
 
   + Der Pfad zu Vitis muss hinzugefuegt werden. Die geht durch das sourcen des Vitis Settings Files: `source /home/markus/Programme/VitisUnifiedSoftware-2021.1/Vitis/2021.1/settings64.sh`
+
+## Versuchaufbau fuer Di, 14.05.2024:
+
+ 1) Das ADRV-Default-Projekt um UartLiteLoopBack erweitern.
+ 2) Das *.xsa-File erzeugen - **ACHTUNG: Dieses muss zwingend unter dem Namen "system_top.xsa" exportiert werden!**
+ 3) Ein PetaLinux-Projekt mit folgendem Aufruf erzeugen:
+
+    petalinux-create -t project --template zynq --name 2024-05-14_adrv9361z7035uartLoopback
+
+ **ACHTUNG: Das ADRV ist kein "zynqMP" sondern ein "zynq"!**
+
+ 4) Das Projekt unter Verwendung des erzeugten *.xsa-Files konfigurieren.
+ 5) Das Projekt bauen.
+ 6) Die BOOT.BIN erzeugen:
+
+    petalinux-package --boot --fsbl images/linux/zynq_fsbl.elf  --u-boot images/linux/u-boot.elf --fpga images/linux/system.bit
+
+ 7) image/linux/ exportieren
