@@ -6,8 +6,8 @@ GIT_REPO=/home/markus/Git-Repos/adDiyBuildScripts
 LOG_DIR=$GIT_REPO/logFiles
 TIME=$(date +%F_%H-%M-%S)
 LOG_FID=$LOG_DIR/${TIME}_bootBinBuild.log
-XSA_FID=$GIT_REPO/$1
-UBOOT_ELF_FID=$GIT_REPO/$2
+XSA_FID=$1
+UBOOT_ELF_FID=$2
 
 cd $GIT_REPO/bootBinBuild/
 
